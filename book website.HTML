@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Awaking in the Sleeping World | Marium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #c8973a;
+      --gold-light: #e8c97a;
+      --gold-pale: #f7edda;
+      --cream: #fdf8f0;
+      --warm-white: #fffcf5;
+      --rust: #a0522d;
+      --deep-brown: #3d2b1f;
+      --text: #4a3728;
+      --text-light: #7a6555;
+      --rose: #c97a7a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--warm-white);
+      color: var(--text);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── DECORATIVE SVG PATTERNS ── */
+    .floral-divider {
+      text-align: center;
+      margin: 10px 0;
+      color: var(--gold);
+      font-size: 1.2rem;
+      letter-spacing: 8px;
+      opacity: 0.7;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(253, 248, 240, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(200, 151, 58, 0.2);
+      padding: 0 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .nav-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 35px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-order-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 8px 22px;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Lato', sans-serif;
+      text-decoration: none;
+    }
+
+    .nav-order-btn:hover {
+      background: var(--gold);
+      color: white;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+      padding-top: 70px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* Soft radial glow */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(200,151,58,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(201,122,122,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    /* Floating petals */
+    .petal {
+      position: absolute;
+      opacity: 0;
+      animation: floatPetal linear infinite;
+      font-size: 1rem;
+      color: var(--rose);
+    }
+    .petal:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; font-size: 0.8rem; }
+    .petal:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; }
+    .petal:nth-child(3) { left: 50%; animation-duration: 10s; animation-delay: 4s; font-size: 0.7rem; }
+    .petal:nth-child(4) { left: 70%; animation-duration: 13s; animation-delay: 1s; }
+    .petal:nth-child(5) { left: 85%; animation-duration: 11s; animation-delay: 3s; font-size: 0.9rem; }
+
+    @keyframes floatPetal {
+      0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 80px;
+      max-width: 1100px;
+      padding: 0 6%;
+      width: 100%;
+    }
+
+    /* Book 3D effect */
+    .hero-book {
+      flex-shrink: 0;
+      perspective: 1200px;
+      animation: fadeInLeft 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .book-3d {
+      width: 240px;
+      height: 330px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateY(-18deg);
+      transition: transform 0.6s ease;
+      cursor: pointer;
+    }
+
+    .book-3d:hover {
+      transform: rotateY(-5deg);
+    }
+
+    .book-front {
+      position: absolute;
+      inset: 0;
+      border-radius: 3px 10px 10px 3px;
+      overflow: hidden;
+      box-shadow: 12px 12px 40px rgba(61,43,31,0.35);
+    }
+
+    .book-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Placeholder for book cover */
+    .book-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #c8973a 0%, #a0522d 50%, #3d2b1f 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .book-placeholder .bp-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fdf8f0;
+      line-height: 1.4;
+      margin-bottom: 15px;
+    }
+
+    .book-placeholder .bp-flower {
+      font-size: 2rem;
+      margin: 10px 0;
+    }
+
+    .book-placeholder .bp-author {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: rgba(247,237,218,0.85);
+      margin-top: 10px;
+    }
+
+    .book-placeholder .bp-note {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.72rem;
+      color: var(--text-light);
+      white-space: nowrap;
+      font-style: italic;
+    }
+
+    .book-spine {
+      position: absolute;
+      left: -22px;
+      top: 0;
+      width: 22px;
+      height: 100%;
+      background: linear-gradient(to right, #5c3d28, #7a5030);
+      border-radius: 3px 0 0 3px;
+      box-shadow: -5px 5px 20px rgba(61,43,31,0.4);
+      transform: rotateY(-90deg);
+      transform-origin: right center;
+    }
+
+    .hero-text {
+      animation: fadeInRight 1s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--deep-brown);
+      margin-bottom: 8px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-author {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: var(--rust);
+      margin-bottom: 25px;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 25px;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text-light);
+      max-width: 460px;
+      margin-bottom: 35px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: white;
+      padding: 14px 32px;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Lato', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--rust);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(160,82,45,0.3);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      padding: 13px 32px;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1px solid rgba(74,55,40,0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Lato', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 90px 6%; }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .section-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      color: var(--deep-brown);
+      line-height: 1.2;
+    }
+
+    .section-heading em { font-style: italic; color: var(--gold); }
+
+    /* ── ABOUT BOOK ── */
+    .about-book {
+      background: var(--gold-pale);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-book::before {
+      content: '❧';
+      position: absolute;
+      top: -20px;
+      right: 5%;
+      font-size: 200px;
+      color: rgba(200,151,58,0.06);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-left .section-heading { margin-bottom: 30px; }
+
+    .about-left p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .pullquote {
+      border-left: 3px solid var(--gold);
+      padding: 15px 0 15px 25px;
+      margin: 30px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--rust);
+      line-height: 1.5;
+    }
+
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .discover-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--deep-brown);
+      margin-bottom: 20px;
+    }
+
+    .discover-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .discover-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(200,151,58,0.2);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+
+    .discover-list li:last-child { border-bottom: none; }
+
+    .discover-list .li-icon {
+      color: var(--gold);
+      font-size: 1rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .book-meta {
+      margin-top: 35px;
+      background: white;
+      padding: 25px 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .meta-item span {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .meta-item p {
+      font-size: 0.9rem;
+      color: var(--text);
+      font-weight: 400;
+      margin: 0 !important;
+    }
+
+    /* ── CHAPTERS ── */
+    .chapters {
+      background: var(--warm-white);
+      text-align: center;
+    }
+
+    .chapters-header {
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .chapters-header p {
+      margin-top: 15px;
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      max-width: 1100px;
+      margin: 0 auto;
+      background: rgba(200,151,58,0.15);
+    }
+
+    .chapter-card {
+      background: var(--warm-white);
+      padding: 40px 35px;
+      text-align: left;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chapter-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .chapter-card:hover { background: var(--gold-pale); }
+    .chapter-card:hover::after { transform: scaleX(1); }
+
+    .ch-num {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .ch-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--deep-brown);
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }
+
+    .ch-excerpt {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--text-light);
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* ── AUTHOR ── */
+    .author-section {
+      background: linear-gradient(160deg, #3d2b1f 0%, #5c3d28 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .author-section::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" opacity="0.04"><circle cx="200" cy="200" r="180" stroke="%23c8973a" stroke-width="1" fill="none"/><circle cx="200" cy="200" r="140" stroke="%23c8973a" stroke-width="1" fill="none"/><circle cx="200" cy="200" r="100" stroke="%23c8973a" stroke-width="1" fill="none"/></svg>') no-repeat center right;
+      pointer-events: none;
+    }
+
+    .author-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .author-img-wrap {
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .author-img-wrap::before {
+      content: '';
+      position: absolute;
+      top: 15px; left: 15px;
+      width: 260px;
+      height: 260px;
+      border: 1px solid rgba(200,151,58,0.4);
+      border-radius: 50%;
+    }
+
+    .author-photo-circle {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid rgba(200,151,58,0.5);
+      position: relative;
+    }
+
+    .author-photo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Author placeholder */
+    .author-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #7a5030, #5c3d28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .author-placeholder-icon {
+      font-size: 3rem;
+      opacity: 0.5;
+    }
+
+    .author-placeholder-text {
+      font-size: 0.7rem;
+      color: rgba(253,248,240,0.5);
+      letter-spacing: 1px;
+      font-style: italic;
+    }
+
+    .author-text { position: relative; }
+
+    .author-text .section-label { color: rgba(200,151,58,0.8); }
+
+    .author-text .section-heading { color: #fdf8f0; margin-bottom: 20px; }
+
+    .author-text p {
+      font-size: 0.97rem;
+      line-height: 1.9;
+      color: rgba(253,248,240,0.75);
+      margin-bottom: 18px;
+    }
+
+    .author-signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      color: var(--gold-light);
+      margin-top: 10px;
+    }
+
+    /* ── REVIEWS ── */
+    .reviews {
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .reviews-header {
+      max-width: 550px;
+      margin: 0 auto 60px;
+    }
+
+    .reviews-header p {
+      margin-top: 15px;
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .review-card {
+      background: white;
+      padding: 40px 35px;
+      text-align: left;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .review-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(61,43,31,0.1);
+    }
+
+    .review-quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      line-height: 0.7;
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .review-stars {
+      color: var(--gold);
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    .review-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 25px;
+    }
+
+    .review-divider {
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .reviewer-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--deep-brown);
+    }
+
+    .reviewer-detail {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 3px;
+    }
+
+    /* ── ORDER SECTION ── */
+    .order-section {
+      background: var(--gold-pale);
+      text-align: center;
+    }
+
+    .order-inner {
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .order-inner .section-heading { margin-bottom: 15px; }
+
+    .order-inner > p {
+      color: var(--text-light);
+      font-size: 0.97rem;
+      line-height: 1.8;
+      margin-bottom: 50px;
+    }
+
+    .order-form-wrap {
+      background: white;
+      padding: 50px;
+      box-shadow: 0 4px 30px rgba(61,43,31,0.08);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1px solid rgba(200,151,58,0.3);
+      background: var(--warm-white);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.92rem;
+      color: var(--text);
+      outline: none;
+      transition: border 0.3s;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group textarea { height: 110px; resize: vertical; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .google-form-divider {
+      text-align: center;
+      margin: 35px 0;
+      position: relative;
+    }
+
+    .google-form-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0; right: 0;
+      height: 1px;
+      background: rgba(200,151,58,0.25);
+    }
+
+    .google-form-divider span {
+      position: relative;
+      background: white;
+      padding: 0 20px;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .google-form-iframe {
+      width: 100%;
+      height: 550px;
+      border: none;
+      margin-top: 10px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep-brown);
+      padding: 50px 6% 30px;
+      color: rgba(253,248,240,0.6);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(200,151,58,0.15);
+      margin-bottom: 25px;
+    }
+
+    .footer-brand .footer-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: rgba(253,248,240,0.45);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(253,248,240,0.55);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-bottom p { font-size: 0.78rem; }
+
+    .footer-email {
+      font-size: 0.78rem;
+      color: var(--gold-light);
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .footer-email:hover { opacity: 0.7; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 4%; }
+      .nav-links { display: none; }
+
+      section { padding: 70px 4%; }
+
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 50px;
+        padding-top: 30px;
+      }
+
+      .hero-divider { margin: 0 auto 25px; }
+      .hero-desc { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .book-meta { grid-template-columns: 1fr 1fr; }
+
+      .author-inner { flex-direction: column; text-align: center; }
+      .author-img-wrap::before { left: 50%; transform: translateX(-50%); }
+      .author-photo-circle { margin: 0 auto; }
+      .author-signature { text-align: center; }
+
+      .chapters-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+
+      .order-form-wrap { padding: 30px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav>
+    <a href="#" class="nav-logo">Marium</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#chapters">Inside</a></li>
+      <li><a href="#author">Author</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+    </ul>
+    <a href="#order" class="nav-order-btn">Order Now</a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="petal">🌸</div>
+      <div class="petal">✿</div>
+      <div class="petal">🌸</div>
+      <div class="petal">✿</div>
+      <div class="petal">🌸</div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-book">
+        <div class="book-3d">
+          <div class="book-spine"></div>
+          <div class="book-front">
+          <img src="C:\Users\M Umar\Downloads\book website\your-cover.jpg" alt="Book Cover">
+            <div class="book-placeholder">
+              <div class="bp-title">Awaking in the<br>Sleeping World</div>
+              <div class="bp-flower">❀</div>
+              <div class="bp-author">Marium</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <span class="hero-eyebrow">✦ A New Book by Marium ✦</span>
+        <h1 class="hero-title">Awaking in the<br><em>Sleeping World</em></h1>
+        <p class="hero-author">by Marium</p>
+        <div class="hero-divider"></div>
+        <p class="hero-desc">A raw, poetic guide to breaking free from life's autopilot — discovering meaning in the mundane and finding the courage to live with intention and grace.</p>
+        <div class="hero-btns">
+          <a href="#order" class="btn-primary">Order Your Copy</a>
+          <a href="#about" class="btn-ghost">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT THE BOOK ── -->
+  <section class="about-book" id="about">
+    <div class="about-inner">
+      <div class="about-left reveal">
+        <span class="section-label">✦ The Book</span>
+        <h2 class="section-heading">A journey inward,<br>a life <em>reclaimed</em></h2>
+        <p>Have you ever paused mid-routine and wondered — is this it? Is this what living is supposed to feel like? In a world that moves relentlessly forward, we are rarely taught to stop and ask the deeper questions.</p>
+        <div class="pullquote">"The greatest tragedy is not death — it is living an entire life without ever truly waking up."</div>
+        <p>Through gentle reflection, honest storytelling, and timeless wisdom, Marium invites you to examine your life with fresh eyes — and to discover that meaning was always closer than you thought.</p>
+      </div>
+
+      <div class="about-right reveal">
+        <p class="discover-title">What you'll discover inside —</p>
+        <ul class="discover-list">
+          <li>
+            <span class="li-icon">❧</span>
+            How to break free from repetitive cycles and find deeper meaning in everyday moments
+          </li>
+          <li>
+            <span class="li-icon">❧</span>
+            The quiet power of gratitude and why simplicity holds the answers we search for everywhere else
+          </li>
+          <li>
+            <span class="li-icon">❧</span>
+            How to transform regret into growth, and carry the past with purpose rather than weight
+          </li>
+          <li>
+            <span class="li-icon">❧</span>
+            The art of living with intention — present, aware, and genuinely alive
+          </li>
+          <li>
+            <span class="li-icon">❧</span>
+            Practical wisdom for navigating the beautiful, messy challenges of modern life
+          </li>
+        </ul>
+
+        <div class="book-meta">
+          <div class="meta-item">
+            <span>Genre</span>
+            <p>Self-Help / Inspirational</p>
+          </div>
+          <div class="meta-item">
+            <span>Pages</span>
+            <p>100</p>
+          </div>
+          <div class="meta-item">
+            <span>Format</span>
+            <p>Paperback & eBook</p>
+          </div>
+          <div class="meta-item">
+            <span>Language</span>
+            <p>English</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CHAPTERS ── -->
+  <section class="chapters" id="chapters">
+    <div class="chapters-header reveal">
+      <span class="section-label">✦ A Glimpse Inside</span>
+      <h2 class="section-heading">Chapters that will<br>stay with <em>you</em></h2>
+      <p>Each chapter is a quiet conversation — thoughtful, honest, and written straight from the heart.</p>
+    </div>
+
+    <div class="chapters-grid">
+      <div class="chapter-card reveal">
+        <span class="ch-num">Chapter One</span>
+        <h3 class="ch-title">Beyond Survival — The Search for Meaning</h3>
+        <p class="ch-excerpt">"Have you ever thought about your life — not just the plans for tomorrow or the worries of today, but the real meaning of it all?"</p>
+      </div>
+
+      <div class="chapter-card reveal">
+        <span class="ch-num">Chapter Five</span>
+        <h3 class="ch-title">When Time Slips Away</h3>
+        <p class="ch-excerpt">"Do you remember those summer vacations from childhood? When two months felt like two years — when time was something you swam in, not something chasing you?"</p>
+      </div>
+
+      <div class="chapter-card reveal">
+        <span class="ch-num">Chapter Ten</span>
+        <h3 class="ch-title">Regret: The Weight We Carry Too Late</h3>
+        <p class="ch-excerpt">"I want to talk about regret — what I call the art of regression. Yes, the kind of silent ache we carry over the smallest of decisions..."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── AUTHOR ── -->
+  <section class="author-section" id="author">
+    <div class="author-inner">
+      <div class="author-img-wrap reveal">
+        <div class="author-photo-circle">
+      <img src="C:\Users\M Umar\Downloads\book website\Author.png" alt="Book Cover">
+          <div class="author-placeholder">
+            <div class="author-placeholder-icon">✦</div>
+            <div class="author-placeholder-text">Author photo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="author-text reveal">
+        <span class="section-label">✦ The Author</span>
+        <h2 class="section-heading" style="color:#fdf8f0;">About <em>Marium</em></h2>
+        <p>Marium is a passionate writer and seeker of life's deeper meaning. Since childhood, she has been fascinated by the human experience and the quiet mysteries that lie just beneath the surface of ordinary life.</p>
+        <p>She began writing this book after gaining significant life experience — understanding, at a deeply personal level, what it truly means to step into something new and unfamiliar. Her writing is born from that place of honest reflection.</p>
+        <p>Marium believes that if her words help even one person understand themselves a little better, the purpose of her writing is completely fulfilled.</p>
+        <div class="author-signature">Marium</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REVIEWS ── -->
+  <section class="reviews" id="reviews">
+    <div class="reviews-header reveal">
+      <span class="section-label">✦ Reader Voices</span>
+      <h2 class="section-heading">Words from those<br>who've <em>read it</em></h2>
+      <p>Real thoughts from real readers — people who found something of themselves within these pages.</p>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <span class="review-quote-mark">"</span>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Btw I am reading your book. It's amazing. It's the most " heart touching book " I ever read. I can't believe someone in this age like you are just 16 and in 10th grade, can write such a deep book.</p>
+        <div class="review-divider"></div>
+        <p class="reviewer-name">A Reader from Pakistan</p>
+        <p class="reviewer-detail">eBook Edition</p>
+      </div>
+
+      <div class="review-card reveal">
+        <span class="review-quote-mark">"</span>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">A beautifully written exploration of what it means to be truly awake in a world that encourages us to sleepwalk through life. This book stayed with me long after I finished the final page.</p>
+        <div class="review-divider"></div>
+        <p class="reviewer-name">Young Professional</p>
+        <p class="reviewer-detail">eBook Edition</p>
+      </div>
+
+      <div class="review-card reveal">
+        <span class="review-quote-mark">"</span>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">I want to take a moment to honour my friend and your book Awakening in the Sleeping World. Even though I've only read a few pages, they were enough to leave a strong impact on me. Your writing feels deep, honest, and thoughtful, and those few pages alone made me pause, reflect, and see the world from a new perspective.</p>
+        <div class="review-divider"></div>
+        <p class="reviewer-name">Student</p>
+        <p class="reviewer-detail">Paperback Edition</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ORDER ── -->
+  <section class="order-section" id="order">
+    <div class="order-inner">
+      <span class="section-label reveal">✦ Get Your Copy</span>
+      <h2 class="section-heading reveal">Ready to begin<br>your <em>awakening?</em></h2>
+      <p class="reveal">Fill in the form below and Marium will get back to you with order details. For direct enquiries, reach out by email.</p>
+
+      <div class="order-form-wrap reveal">
+        <div class="google-form-divider">
+          <span>Order Form</span>
+        </div>
+        <iframe
+          class="google-form-iframe"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSdnjcXtyOMyqJqzVkassqr5tbJlR51PdicMtmhqXfOEatpC6w/viewform?embedded=true"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0">
+          Loading form…
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">Marium</span>
+        <p>Awaking in the Sleeping World — 2025</p>
+      </div>
+      <nav class="footer-links">
+        <a href="#about">About</a>
+        <a href="#chapters">Inside</a>
+        <a href="#author">Author</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#order">Order</a>
+        <a href="mailto:mariumnizamani832@gmail.com">Email</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Marium. All rights reserved.</p>
+      <a href="mailto:mariumnizamani832@gmail.com" class="footer-email">mariumnizamani832@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
